@@ -63,6 +63,6 @@ pos = input("Where do you want your Treasure")
 a = int(pos[0])
 b = int(pos[1])
 
-map[a -1][b - 1] = "X"
+map[b -1][a - 1] = "X"
 print(f"{row1}\n{row2}\n{row3}")
 
