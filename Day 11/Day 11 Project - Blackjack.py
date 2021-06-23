@@ -17,29 +17,21 @@ import random
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 def random_card_list():
     b = []
-    b.append(random.choice(cards))
     n = 0
-    while n < 1:
+    while n < 2:
         a = random.choice(cards)
-        if a == 11:
-            b.append(1)
-        else:
-            b.append(a)
+        b.append(a)
         n+=1
     return b
 def comparotor(a,b):
-    if a > b and a < 21 :
+    if a > b and a <= 21 :
         return "You Win!!!"
-    elif b > a and b < 21:
+    elif b > a and b <= 21:
         return "Opponent Wins"
     elif a > b and a > 21:
         return "You went over. You Lose "
     elif b > a and b > 21:
         return "Your Opponent went over. You Win"
-    elif a > b and a == 21:
-        return "You have Blackjack. You Win"
-    elif b > a and b == 21:
-        return "Blackjack. Your Opponent Wins"
     elif a == b:
         return "Draw"
 
@@ -51,29 +43,52 @@ while l != 'n':
     pyautogui.hotkey('=', '`')
     if l == 'y':
         player_total = random_card_list()
-        print(f'Your Cards:{player_total} ,Current Score : {sum(player_total)}')
         com = random_card_list()
-        print(f"Computer's First Card : {com[0]}")
-        while sum(com) < 17:
-            j = random.choice(cards)
-            if sum(com) > 10 and j == 11:
-                com.append(1)
-            else:
-                com.append(j)
-        f = 'h'
-        while f != 'n':
-            if sum(player_total) >= 21:
-                f = 'n'
-            else:
-                f = input("press y if you want to get another card else n\n")
-                if f == 'y':
-                    v = random.choice(cards)
-                    if sum(player_total) > 10 and v == 11:
-                        player_total.append(1)
-                    else:
-                        player_total.append(v)
-                    print(f'Your Cards:{player_total} , Current Score : {sum(player_total)} ')
-                    print(f"Computer's First Card : {com[0]}")
+        if sum(player_total) == 21:
+            print(f'Your Cards:{player_total} ,Current Score : {sum(player_total)}')
+            print("You have Blackjack. You Win")
+            print(f'Computer Cards : {com}')
+            print(f"Computer score is {sum(com)}")
+            break
+        elif sum(com) == 21:
+            print(f'Your Opponents Cards:{player_total} , Score : {sum(player_total)}')
+            print("Blackjack. Your Opponent Wins")
+            print(f'Computer Cards : {com}')
+            print(f"Computer score is {sum(com)}")
+            break
+        else:
+            print(f'Your Cards:{player_total} ,Current Score : {sum(player_total)}')
+            print(f"Computer's First Card : {com[0]}")
+            if sum(com) == 22:
+                com[1] = 1
+            while sum(com) < 17:
+                p = random.choice(cards)
+                for j in cards:
+                    if sum(com) + j > 21 and 11 in com:
+                        h = com.index(11)
+                        com[h] = 1
+                    if sum(com) + j > 21 and j == 11:
+                        com.append(1)
+                else:
+                    com.append(p)
+            f = 'h'
+            while f != 'n':
+                if sum(player_total) >= 21:
+                    f = 'n'
+                else:
+                    f = input("press y if you want to get another card else n\n")
+                    if f == 'y':
+                        v = random.choice(cards)
+                        for i in cards:
+                            if sum(player_total) + i > 21 and 11 in player_total:
+                                g = player_total.index(11)
+                                player_total[g] = 1
+                            if sum(player_total) + i > 21 and v == 11:
+                                player_total.append(1)
+                        else:
+                            player_total.append(v)
+                        print(f'Your Cards:{player_total} , Current Score : {sum(player_total)} ')
+                        print(f"Computer's First Card : {com[0]}")
     s = comparotor(a=sum(player_total), b=sum(com))
     print(f'Computer Cards : {com}')
     print(f"Computer score is {sum(com)}")
