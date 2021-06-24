@@ -44,55 +44,52 @@ while l != 'n':
     if l == 'y':
         player_total = random_card_list()
         com = random_card_list()
-        if sum(player_total) == 21:
+        if sum(player_total) == 21 and len(player_total) == 2:
             print(f'Your Cards:{player_total} ,Current Score : {sum(player_total)}')
             print("You have Blackjack. You Win")
             print(f'Computer Cards : {com}')
             print(f"Computer score is {sum(com)}")
-            break
-        elif sum(com) == 21:
+        elif sum(com) == 21 and len(com) == 2:
             print(f'Your Opponents Cards:{player_total} , Score : {sum(player_total)}')
             print("Blackjack. Your Opponent Wins")
             print(f'Computer Cards : {com}')
             print(f"Computer score is {sum(com)}")
-            break
         else:
             print(f'Your Cards:{player_total} ,Current Score : {sum(player_total)}')
             print(f"Computer's First Card : {com[0]}")
             if sum(com) == 22:
-                com[1] = 1
+                k = round(random.random())
+                com[k] = 1
             while sum(com) < 17:
                 p = random.choice(cards)
-                for j in cards:
-                    if sum(com) + j > 21 and 11 in com:
-                        h = com.index(11)
-                        com[h] = 1
-                    if sum(com) + j > 21 and j == 11:
-                        com.append(1)
+                if sum(com) + p > 21 and 11 in com:
+                    h = com.index(11)
+                    com[h] = 1
+                if sum(com) + p > 21 and p == 11:
+                    com.append(1)
                 else:
                     com.append(p)
             f = 'h'
             while f != 'n':
-                if sum(player_total) >= 21:
+                if sum(player_total) >= 21 and len(player_total) > 2:
                     f = 'n'
                 else:
                     f = input("press y if you want to get another card else n\n")
                     if f == 'y':
                         v = random.choice(cards)
-                        for i in cards:
-                            if sum(player_total) + i > 21 and 11 in player_total:
-                                g = player_total.index(11)
-                                player_total[g] = 1
-                            if sum(player_total) + i > 21 and v == 11:
-                                player_total.append(1)
+                        if sum(player_total) + v > 21 and 11 in player_total:
+                            g = player_total.index(11)
+                            player_total[g] = 1
+                        elif sum(player_total) + v > 21 and v == 11:
+                            player_total.append(1)
                         else:
                             player_total.append(v)
                         print(f'Your Cards:{player_total} , Current Score : {sum(player_total)} ')
                         print(f"Computer's First Card : {com[0]}")
-    s = comparotor(a=sum(player_total), b=sum(com))
-    print(f'Computer Cards : {com}')
-    print(f"Computer score is {sum(com)}")
-    print(s)
+            s = comparotor(a=sum(player_total), b=sum(com))
+            print(f'Computer Cards : {com}')
+            print(f"Computer score is {sum(com)}")
+            print(s)
 
 
 
