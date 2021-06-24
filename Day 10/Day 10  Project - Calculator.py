@@ -1,7 +1,7 @@
 import logo2
 logo = logo2.logo
 print(logo)
-def cal(num1 = int(input("Enter the first operand")), op = input("Enter your operation\n+\n-\n*\n/\n"),num2 = int(input("Enter the second operand"))):
+def cal():
     def add():
         return num1 + num2
     def sub():
@@ -17,14 +17,21 @@ def cal(num1 = int(input("Enter the first operand")), op = input("Enter your ope
         "/" : div()
     }
     return calculator[op]
-
+num1 = int(input("Enter the first operand\n"))
+op = input("Enter your operation\n+\n-\n*\n/\n")
+num2 = int(input("Enter the second operand\n"))
 a = cal()
+print(f'{num1}{op}{num2} = {a}')
 n = input("if you want to continue press y else n").lower()
 while n != "n":
-    b = cal(num1 = a,op = input("Enter your operation\n+\n-\n*\n/\n"),num2 = int(input("Enter the number")))
+    num1 = a
+    op = input("Enter your operation\n")
+    num2 = int(input("Enter the number\n"))
+    b = cal()
     a = b
+    print(f'{num1}{op}{num2} = {a}')
     n = input("if you want to continue press y else n").lower()
-print(f'The answer is {a}')
+print(f"Your Final Answer is {a}")
 
 
 
